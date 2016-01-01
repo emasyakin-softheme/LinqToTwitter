@@ -82,6 +82,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Help\HelpRequestProcessor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Help\HelpType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Help\Language.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Help\Variant.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Help\VideoInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Help\PhotoSize.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Help\RateLimits.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LinqToTwitter\ITwitterExecute.cs" />

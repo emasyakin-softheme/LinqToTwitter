@@ -47,6 +47,9 @@ namespace LinqToTwitter
                     : (from JsonData media in mediaEntities
                        let indices = media.GetValue<JsonData>("indices")
                        let sizes = media.GetValue<JsonData>("sizes")
+                       let video = media.GetValue<JsonData>("video_info")
+                       let videoAspects = video.GetValue<JsonData>("aspect_ratio")
+                       let videoVariants = video.GetValue<JsonData>("variants")
                        select new MediaEntity
                        {
                            DisplayUrl = media.GetValue<string>("display_url"),
@@ -66,6 +69,17 @@ namespace LinqToTwitter
                                     Resize = sizesKey.GetValue<string>("resize")
                                 })
                                .ToList(),
+                           VideoInfo = video == null ? null : new VideoInfo
+                           {
+                               AspectRatio = videoAspects == null || videoAspects.Count < 2 ? new List<int>() : new List<int> { (int)videoAspects[0], (int)videoAspects[1] },
+                               Variants = (from JsonData variant in videoVariants
+                                           select new Variant
+                                           {
+                                               BitRate = variant.GetValue<int>("bitrate"),
+                                               ContentType = variant.GetValue<string>("content_type"),
+                                               Url = variant.GetValue<string>("url")
+                                           }).ToList()
+                           },
                            Type = media.GetValue<string>("type"),
                            Url = media.GetValue<string>("url"),
                            Start = indices.Count > 0 ? (int)indices[0] : 0,
